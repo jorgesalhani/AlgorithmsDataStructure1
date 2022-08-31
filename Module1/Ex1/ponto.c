@@ -55,6 +55,6 @@ float ponto_get_y(PONTO *p) {
 
 void ponto_print(PONTO *p) {
   if (p != NULL) {
-    printf("Ponto: (%.2f, %.2f)\n", p->x, p->y);
+    printf("Ponto: (%.1f, %.1f)\n", p->x, p->y);
   }
 }
