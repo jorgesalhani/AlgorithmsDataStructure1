@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "book.h"
+#include "shelf.h"
 #define ID_CODE 0
 
 struct shelf {
   BOOK** shelf;
-}
+};
 
 struct book {
   int id;

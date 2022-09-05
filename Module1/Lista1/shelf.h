@@ -119,5 +119,5 @@
     @param shelf The shelf's memory address
     @return successfully deleted ? true : false
   */
-  book delete_shelf(SHELF*** shelf);
+  bool delete_shelf(SHELF*** shelf);
 #endif

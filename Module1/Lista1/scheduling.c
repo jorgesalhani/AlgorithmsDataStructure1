@@ -8,7 +8,7 @@ struct sheduling {
   char* requester;
   int amount;
   SCHEDULING* next_scheduling;
-}
+};
 
 // CREATE
 SCHEDULING* new_scheduling(char* requester, int amount) {
