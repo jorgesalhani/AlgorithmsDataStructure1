@@ -8,6 +8,7 @@
 
 #ifndef SHELF_H
   #define SHELF_H
+  #include <stdbool.h>
   #include "scheduling.h"
   typedef struct book_ BOOK;
   typedef struct shelf_ SHELF;
@@ -15,9 +16,9 @@
   /**
     @brief Create a book shelf ADT
     @param void
-    @return SHELF* ADT
+    @return SHELF** ADT
   */
-  SHELF* create_shelf(void);
+  SHELF** create_shelf(void);
 
   /**
     @brief Register a new book ADT
@@ -61,6 +62,13 @@
   */    
   SCHEDULING* get_scheduling(SHELF*** shelf, int id);
   
+  /**
+    @brief Print formatted all shelf books
+    @param shelf The shelf's memory address
+    @return Void
+  */   
+  void printf_shelf(SHELF*** shelf);
+
   /**
     @brief Print formatted book's metadata by it's ID code
     @param shelf The shelf's memory address

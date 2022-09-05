@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "shelf.h"
-#define ID_CODE 0
 
-struct shelf {
+int ID_CODE = 0;
+
+struct shelf_ {
   BOOK** shelf;
 };
 
-struct book {
+struct book_ {
   int id;
   char* title;
   char* author;
@@ -54,13 +55,13 @@ void _fill_book_default_information(BOOK* book, char* title, char* author) {
 }
 
 // CREATE
-SHELF* create_shelf(void) {
+SHELF** create_shelf(void) {
   SHELF** shelf;
   shelf = (SHELF**)malloc(sizeof(SHELF*));
-  shelf* = (BOOK*)malloc(sizeof(BOOK*));
+  *shelf = (BOOK*)malloc(sizeof(BOOK*));
 
   if (shelf != NULL) {
-    shelf* = NULL;
+    *shelf = NULL;
     return shelf;
   }
 
@@ -80,6 +81,29 @@ BOOK* create_book(SHELF*** shelf, char* title, char* author) {
 }
 
 // READ
+
+void printf_book(SHELF*** shelf, int id) {
+  // if(*shelf != NULL) {
+  //   SHELF** _shelf = *shelf;
+  //   if (_shelf[id] != NULL) {
+  //     printf('BOOK %d\n=========\n', id);
+  //   }
+  // }
+  printf('Empty shelf!\n');
+}
+
+void printf_shelf(SHELF*** shelf) {
+  if(*shelf != NULL) {
+    SHELF** _shelf = *shelf;
+    for (int i = 0; i < ID_CODE; i++) {
+      if (_shelf[i] != NULL) {
+        printf_book(shelf, i);
+      }
+    }
+  }
+  return;
+}
+
 BOOK* get_book_by_id(SHELF*** shelf, int id) {
 
 }
@@ -124,17 +148,20 @@ BOOK* borrow_book(SHELF*** shelf, char* title, char* author, char* requester) {
 
 // DELETE
 bool delete_book(SHELF*** shelf, int id) {
-  if (shelf != NULL && *shelf[id] != NULL) {
-    if (*shelf[id]->title != NULL) {
-      free(*shelf[id]->title);
+  SHELF** book_shelf = *shelf;
+  BOOK* chosen_book = book_shelf[id];
+  
+  if (shelf != NULL && chosen_book != NULL) {
+    if (chosen_book->title != NULL) {
+      free(chosen_book->title);
     }
-    if (*shelf[id]->author != NULL) {
-      free(*shelf[id]->author);
+    if (chosen_book->author != NULL) {
+      free(chosen_book->author);
     }
-    if (*shelf[id]->scheduling != NULL) {
-      free(*shelf[id]->scheduling);
+    if (chosen_book->scheduling != NULL) {
+      free(chosen_book->scheduling);
     }
-    free(*shelf[id]);
+    free(chosen_book);
     return true;
   }
   return false;
@@ -142,13 +169,15 @@ bool delete_book(SHELF*** shelf, int id) {
 
 bool delete_shelf(SHELF*** shelf) {
   if (shelf != NULL) {
-    for (int i = 0; i < ID_CODE; i++) {
-      if (*shelf != NULL) {
-        delete_book(shelf, i);
-      }
-      free(*shelf)
-      *shelf++;
-    }
+    // for (int i = 0; i < ID_CODE; i++) {
+    //   if (*shelf != NULL) {
+    //     delete_book(shelf, i);
+    //   }
+    //   free(*shelf);
+    //   (*shelf)++;
+    // }
+    free(*shelf);
+    free(shelf);
     return true;
   }
   return false;

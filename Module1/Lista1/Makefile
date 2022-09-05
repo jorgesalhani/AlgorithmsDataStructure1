@@ -1,5 +1,5 @@
 all: scheduling.o shelf.o client.o
-	gcc client.o shelf.o scheduling.o -o shelf_borrow -std=c99 -Wall
+	gcc client.o shelf.o scheduling.o -o exec -std=c99 -Wall
 
 scheduling.o:
 	gcc -c scheduling.c -o scheduling.o
@@ -11,7 +11,7 @@ client.o:
 	gcc -c client.c -o client.o
 
 clean:
-	rm *.o shelf_borrow
+	rm *.o exec
 	
 run:
-	./shelf_borrow
+	./exec
