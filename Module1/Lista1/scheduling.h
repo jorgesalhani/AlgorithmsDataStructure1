@@ -1,9 +1,27 @@
+/**
+  @file scheduling.h
+  @brief Function prototypes for book scheduling 
+
+  @author Jorge Salhani, 2022
+  @bug No known bugs
+*/
+
 #ifndef SCHEDULING_H
   #define SCHEDULING_H
   typedef struct scheduling_ SCHEDULING;
-    // CREATE
-    SCHEDULING* scheduling(char* requester, int amount);
 
-    // READ
-    SCHEDULING* get_scheduling_by_book_id(int id);
+  /**
+    @brief Create a scheduling ADT to be attached to a given book
+    @param requester The name from requester
+    @param amount The book amount requested to be borrowed
+    @return SCHEDULING* ADT
+  */
+  SCHEDULING* new_scheduling(char* requester, int amount);
+
+  /**
+    @brief Retrieve the schedule queue attached to a given book
+    @param book_id The book ID code
+    @return SCHEDULING* ADT
+  */
+  SCHEDULING* get_scheduling_by_book_id(int book_id);
 #endif
