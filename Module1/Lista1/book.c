@@ -84,17 +84,16 @@ BOOK* create_book(BOOK** book_shelf, char* title, char* author) {
 void printf_book(BOOK** book_shelf, int id) {
   if(book_shelf != NULL && *book_shelf != NULL) {
     if (book_shelf[id] != NULL) {
-      printf('BOOK %d\n=========\n', id);
+      printf("BOOK %d\n=========\n", id);
     }
   }
-  printf('Empty shelf!\n');
+  printf("Empty shelf!\n");
 }
 
 void printf_shelf(BOOK** book_shelf) {
-  if(*book_shelf != NULL) {
-    BOOK** _shelf = *book_shelf;
+  if(book_shelf != NULL) {
     for (int i = 0; i < ID_CODE; i++) {
-      if (_shelf[i] != NULL) {
+      if (book_shelf[i] != NULL) {
         printf_book(book_shelf, i);
       }
     }

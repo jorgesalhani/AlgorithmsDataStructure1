@@ -1,5 +1,5 @@
-all: scheduling.o book.o client.o
-	gcc client.o book.o scheduling.o -o exec -std=c99 -Wall
+all: scheduling.o book.o client.o run
+	gcc client.o book.o scheduling.o -o exec -std=c99 -Wall; make clean
 
 scheduling.o:
 	gcc -c scheduling.c -o scheduling.o

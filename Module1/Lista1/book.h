@@ -7,7 +7,7 @@
 */
 
 #ifndef BOOK_H
-  #define SHELF_H
+  #define BOOK_H
   #include <stdbool.h>
   #include "scheduling.h"
   typedef struct book_ BOOK;

@@ -4,9 +4,10 @@
 #include <stdlib.h>
 
 int main(void) {
-  BOOK** book_shelf = create_shelf();
-  BOOK* book = create_book(book_shelf, "aaa", "bbb");
-  printf_book(book, 0);
-  delete_shelf(book_shelf);
+  // BOOK** book_shelf = create_shelf();
+  // BOOK* book = create_book(book_shelf, "aaa", "bbb");
+  // printf_book(book, 0);
+  // delete_shelf(book_shelf);
+  printf("AAA\n");
   return 0;
 }
