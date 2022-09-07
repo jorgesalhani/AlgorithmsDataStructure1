@@ -1,13 +1,10 @@
-#include "book.h"
-#include "scheduling.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "book.h"
 
 int main(void) {
-  // BOOK** book_shelf = create_shelf();
-  // BOOK* book = create_book(book_shelf, "aaa", "bbb");
-  // printf_book(book, 0);
-  // delete_shelf(book_shelf);
-  printf("AAA\n");
+  BOOK* book = book_create("Title", "Author");
+  book_printf(book);
+  book_delete(book);
   return 0;
 }
