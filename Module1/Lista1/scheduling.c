@@ -2,20 +2,25 @@
 #include <stdlib.h>
 #include "scheduling.h"
 
-struct sheduling {
+int ID_CODE = 0;
+
+struct scheduling_ {
   int id;
   int book_id;
   char* requester;
-  int amount;
   SCHEDULING* next_scheduling;
 };
 
 // CREATE
-SCHEDULING* new_scheduling(char* requester, int amount) {
-
+SCHEDULING* new_scheduling(BOOK*** ptr_book_shelf, int book_id, char* requester) {
+  BOOK** book_shelf = *ptr_book_shelf;
+  if (book_shelf == NULL) return NULL;
+  SCHEDULING* scheduling = (SCHEDULING*) malloc(sizeof(SCHEDULING));
+  BOOK* book = book_shelf[book_id];
+  return;
 }
 
 // READ
-SCHEDULING* get_scheduling_by_book_id(int book_id) {
-
+SCHEDULING* get_scheduling_by_book_id(BOOK*** ptr_book_shelf, int book_id) {
+  return;
 }

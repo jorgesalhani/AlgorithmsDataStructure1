@@ -11,7 +11,13 @@ int main(void) {
   book_insert_in_shelf(&book_shelf, "Author1", "Title1", 1);
   book_insert_in_shelf(&book_shelf, "Author2", "Title2", 1);
 
-  book_printf(book_shelf[1]);
+  // book_printf_by_id(&book_shelf, 2);
+
+  BOOK* book = book_get_by_id(&book_shelf, 2);
+  book_printf(book);
+
+  book = book_borrow_by_author(&book_shelf, "Author2", "Jorge");
+  book_printf(book);
 
   book_delete_shelf(&book_shelf);
 
