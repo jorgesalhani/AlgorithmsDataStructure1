@@ -58,3 +58,22 @@ void ponto_print(PONTO *p) {
     printf("Ponto: (%.1f, %.1f)\n", p->x, p->y);
   }
 }
+
+float _calcular_sqrt_iterativo_(float x) {
+  float temp = 0;
+  float sqrt_it = x / 2;
+  while (sqrt_it != temp) {
+    temp = sqrt_it;
+    sqrt_it = (x/temp + temp) / 2;
+  }
+  return sqrt_it;
+}
+
+float distancia(PONTO *p1, PONTO *p2) {
+  if (p1 != NULL && p2 != NULL) {
+    float x1 = p1->x, x2 = p2->x, y1 = p1->y, y2 = p2->y;
+    float dist = _calcular_sqrt_iterativo_(((y2 - y1)*(y2 - y1) + (x2-x1)*(x2-x1)));
+    return dist;
+  }
+  return -1;
+}
