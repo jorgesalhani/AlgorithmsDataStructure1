@@ -1,6 +1,7 @@
-#include "Pilha.h"
+// #include "Pilha.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "item.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,17 +9,21 @@ int main(int argc, char *argv[])
    int qtd=0;
    
    /*qtd de sequencias a serem lidas e analisadas*/
-   scanf("%d", &qtd);
+   // scanf("%d", &qtd);
 
-   for(int i=0; i<qtd; i++){
-      scanf("%s", str_sequencia);
-      if(balanceada(str_sequencia))
-      	printf("BALANCEADO\n");
-      else
-      	printf("NÃO BALANCEADO\n");
-   }    
+   // for(int i=0; i<qtd; i++){
+   //    // scanf("%s", str_sequencia);
+   //    if(balanceada(str_sequencia))
+   //    	printf("BALANCEADO\n");
+   //    else
+   //    	printf("NÃO BALANCEADO\n");
+   // }    
+   // return 0;
+
+   ITEM *item = item_criar('A');
+   item_apagar(&item);
+
    return 0;
-   
 }
 
 
