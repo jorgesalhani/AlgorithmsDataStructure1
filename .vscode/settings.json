@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "scheduling.h": "c",
+    "book.h": "c"
+  }
+}
