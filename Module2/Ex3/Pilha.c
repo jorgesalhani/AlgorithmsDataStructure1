@@ -74,39 +74,15 @@ bool balanceada(char *sequencia) {
   PILHA *pilha_chaves = pilha_criar();
   while (c != '\0') {
     ITEM *item = item_criar(c);
-    switch (c) {
-      case '(':
-        pilha_empilhar(pilha_parenteses, item);
-        pilha_print(pilha_parenteses);
-        break;
-      case ')':
-        pilha_desempilhar(pilha_parenteses);
-        pilha_print(pilha_parenteses);
-        break;
-      case '[':
-        pilha_empilhar(pilha_colchetes, item);
-        pilha_print(pilha_colchetes);
-        break;
-      case ']':
-        pilha_desempilhar(pilha_colchetes);
-        pilha_print(pilha_colchetes);
-        break;
-      case '{':
-        pilha_empilhar(pilha_chaves, item);
-        pilha_print(pilha_chaves);
-        break;
-      case '}':
-        pilha_desempilhar(pilha_chaves);
-        pilha_print(pilha_chaves);
-        break;
-    }
-    item_apagar(&item);
+    if (c == '(' || c == ')') pilha_empilhar(pilha_parenteses, item);
+    if (c == '[' || c == ']') pilha_empilhar(pilha_colchetes, item);
+    if (c == '{' || c == '}') pilha_empilhar(pilha_chaves, item);
     c = sequencia[i];
     i++;
   }
-  pilha_tamanho(pilha_parenteses);
-  pilha_tamanho(pilha_colchetes);
-  pilha_tamanho(pilha_chaves);
+  printf("%d\n", pilha_tamanho(pilha_parenteses));
+  printf("%d\n", pilha_tamanho(pilha_colchetes));
+  printf("%d\n", pilha_tamanho(pilha_chaves));
   pilha_apagar(&pilha_parenteses);
   pilha_apagar(&pilha_colchetes);
   pilha_apagar(&pilha_chaves);

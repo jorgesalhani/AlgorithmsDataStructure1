@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
       else
       	printf("NÃO BALANCEADO\n");
    }    
+
    return 0;
 }
 
