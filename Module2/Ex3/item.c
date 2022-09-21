@@ -1,5 +1,6 @@
 #include "item.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 struct item_
 {
@@ -26,13 +27,16 @@ bool item_apagar(ITEM **item) {
 }
 
 void item_imprimir(ITEM *item) {
-
+  if (item != NULL) printf("%c\n", item->chave);
 }
 
 int item_get_chave(ITEM *item) {
-
+  if (item == NULL) return ERRO;
+  return (item->chave);
 }
 
 bool item_set_chave(ITEM *item, char chave) {
-
+  if (item == NULL) return false;
+  item->chave = chave;
+  return true;
 }
