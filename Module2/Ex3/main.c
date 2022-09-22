@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-   char str_sequencia[300];
+   char str_sequencia[1000];
    int qtd=0;
 
    /*qtd de sequencias a serem lidas e analisadas*/

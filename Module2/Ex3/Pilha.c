@@ -42,7 +42,7 @@ int pilha_tamanho(PILHA* pilha) {
 }
 
 ITEM* pilha_topo(PILHA* pilha) {
-  if (pilha == NULL) return NULL;
+  if (pilha == NULL || pilha_vazia(pilha)) return NULL;
   return (pilha->item)[pilha->tamanho - 1];
 }
 
@@ -69,22 +69,40 @@ void pilha_print(PILHA* p) {
 bool balanceada(char *sequencia) {
   char c = sequencia[0];
   int i = 1;
-  PILHA *pilha_parenteses = pilha_criar();
-  PILHA *pilha_colchetes = pilha_criar();
-  PILHA *pilha_chaves = pilha_criar();
+
+  PILHA *pilha_aberta = pilha_criar();
+
+  ITEM *item;
+  ITEM *it;
   while (c != '\0') {
-    ITEM *item = item_criar(c);
-    if (c == '(' || c == ')') pilha_empilhar(pilha_parenteses, item);
-    if (c == '[' || c == ']') pilha_empilhar(pilha_colchetes, item);
-    if (c == '{' || c == '}') pilha_empilhar(pilha_chaves, item);
+    if (c == '(' || c == '[' || c == '{') {
+      item = item_criar(c);
+      pilha_empilhar(pilha_aberta, item);
+    } else {
+      it = pilha_topo(pilha_aberta);
+      if (c == ')' && item_get_chave(it) == '(') {
+        it = pilha_desempilhar(pilha_aberta);
+        item_apagar(&it);
+      } else
+      if (c == ']' && item_get_chave(it) == '[') {
+        it = pilha_desempilhar(pilha_aberta);
+        item_apagar(&it);
+      } else
+      if (c == '}' && item_get_chave(it) == '{') {
+        it = pilha_desempilhar(pilha_aberta);
+        item_apagar(&it);
+      } else {
+        item = item_criar(c);
+        pilha_empilhar(pilha_aberta, item);
+        break;
+      }
+    }
+    
     c = sequencia[i];
     i++;
   }
-  printf("%d\n", pilha_tamanho(pilha_parenteses));
-  printf("%d\n", pilha_tamanho(pilha_colchetes));
-  printf("%d\n", pilha_tamanho(pilha_chaves));
-  pilha_apagar(&pilha_parenteses);
-  pilha_apagar(&pilha_colchetes);
-  pilha_apagar(&pilha_chaves);
-  return true;
+  bool str_balanceada = true;
+  if (pilha_tamanho(pilha_aberta) != 0) str_balanceada = false;
+  pilha_apagar(&pilha_aberta);
+  return str_balanceada;
 }

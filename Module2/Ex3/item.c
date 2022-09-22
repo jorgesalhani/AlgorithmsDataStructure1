@@ -30,8 +30,8 @@ void item_imprimir(ITEM *item) {
   if (item != NULL) printf("%c\n", item->chave);
 }
 
-int item_get_chave(ITEM *item) {
-  if (item == NULL) return ERRO;
+char item_get_chave(ITEM *item) {
+  if (item == NULL) return '\0';
   return (item->chave);
 }
 
