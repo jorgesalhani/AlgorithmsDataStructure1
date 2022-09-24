@@ -1,17 +1,17 @@
 ﻿all: item.o Pilha.o main.o
-	gcc item.o Pilha.o main.o -o balanceada -std=c99 -Wall
+	gcc item.o Pilha.o main.o -o exec -std=c99 -Wall; make clean
 
 item.o:
-	gcc -c item.c -o item.o
+	gcc -g -c item.c -o item.o
 
 Pilha.o:
-	gcc -c Pilha.c -o Pilha.o
+	gcc -g -c Pilha.c -o Pilha.o
 	 
 main.o:
-	gcc -c main.c -o main.o
+	gcc -g -c main.c -o main.o
 	 
 clean:
-	rm *.o balanceada
+	rm *.o
 
 run:
-	./balanceada
+	./exec
