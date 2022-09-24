@@ -89,12 +89,12 @@ bool balanceada(char *sequencia) {
       // Caso nao seja um caracter de abertura (i.e. carter de fechamento ), ], } ), 
       // verificar qual o caracter de abertura do
       // topo da pilha. Se formarem um par (), [], {}, desempilhar e apagar o item do topo
+      if (pilha_tamanho(pilha_aberta) == 0) return false;
       it = pilha_topo(pilha_aberta);
       if (
         (c == ')' && item_get_chave(it) == '(') ||
         (c == ']' && item_get_chave(it) == '[') ||
-        (c == '}' && item_get_chave(it) == '{') && 
-        pilha_tamanho(pilha_aberta) > 0
+        (c == '}' && item_get_chave(it) == '{')
       ) {
         it = pilha_desempilhar(pilha_aberta);
         item_apagar(&it);
