@@ -14,4 +14,4 @@ clean:
 	rm *.o rpn
 
 run:
-	./rpn
+	valgrind ./rpn < CasosTeste/3.in

@@ -4,7 +4,7 @@
   #include "item.h"
   #include <stdbool.h>
 
-  #define TAM 5
+  #define TAM 100
 
   typedef struct pilha PILHA;
 

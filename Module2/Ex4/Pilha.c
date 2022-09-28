@@ -66,6 +66,47 @@ void pilha_print(PILHA *p) {
 } 
 
 float rpn(char *sequencia) {
+  if (sequencia == NULL) return 404.404;
+  int i = 1;
+  char c = sequencia[0];
+  PILHA *pilha = pilha_criar();
+  ITEM* item;
+  float result;
 
+  while (c != '\0') {
+    if (c == '+' || c == '-' || c == '*' || c == '/') {
+      if (!pilha_vazia(pilha)) {
+        ITEM* item_op2 = pilha_desempilhar(pilha);
+        ITEM* item_op1 = pilha_desempilhar(pilha);
+        switch (c) {
+          case '+':
+            result = item_get_chave(item_op1) + item_get_chave(item_op2);
+            break;
+          case '-':
+            result = item_get_chave(item_op1) - item_get_chave(item_op2);
+            break;
+          case '*':
+            result = item_get_chave(item_op1) * item_get_chave(item_op2);
+            break;
+          case '/':
+            result = item_get_chave(item_op1) / item_get_chave(item_op2);
+            break;
+          
+          default:
+            break;
+        }
+        item = item_criar(result);
+        pilha_empilhar(pilha, item);
+        item_apagar(&item_op1);
+        item_apagar(&item_op2);
+      }
+    } else {
+
+      item = item_criar(((int)c - 48));
+      pilha_empilhar(pilha, item);
+    }
+    c = sequencia[i++];
+  }
+  pilha_apagar(&pilha);
 }
 
