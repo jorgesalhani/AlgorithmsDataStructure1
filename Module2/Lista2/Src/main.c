@@ -19,24 +19,33 @@ int main(void) {
   fila_inserir(fila, item3);
   fila_inserir(fila, item4);
   fila_inserir(fila, item5);
-  // fila_inserir(fila, item6);
-  // fila_inserir(fila, item7);
 
   fila_imprimir(fila);
   fila_completa_imprimir(fila);
   
   ITEM* item_aux = fila_remover(fila);
+  ITEM* item_aux2 = fila_remover(fila);
 
   fila_imprimir(fila);
   fila_completa_imprimir(fila);
   
+  fila_inserir(fila, item6);
+  fila_completa_imprimir(fila);
+
   
+  ITEM* item_aux3 = fila_remover(fila);
   
+  fila_inserir(fila, item7);
+  
+  fila_imprimir(fila);
+  fila_completa_imprimir(fila);
+
   fila_apagar(&fila);
 
   item_apagar(&item_aux);
-  item_apagar(&item6);
-  item_apagar(&item7);
+  item_apagar(&item_aux2);
+  item_apagar(&item_aux3);
+  
   
 
   return 0;
