@@ -1,6 +1,6 @@
 #ifndef ITEM_H
 	#define ITEM_H
-	
+	#define ERRO -404
 	#include <stdbool.h>
 
 	typedef struct item_ ITEM;

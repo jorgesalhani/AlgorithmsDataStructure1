@@ -1,17 +1,17 @@
 ﻿all: item.o fila.o main.o
-	gcc item.o fila.o main.o -o fila -std=c99 -Wall
+	gcc -g item.o fila.o main.o -o exec -std=c99 -Wall; make clean;
 
 item.o:
-	gcc -c item.c -o item.o
+	gcc -g -c item.c -o item.o
 
-filaencadeada.o:
-	gcc -c fila.c -o fila.o
+fila.o:
+	gcc -g -c fila.c -o fila.o
 	 
 main.o:
-	gcc -c main.c -o main.o
+	gcc -g -c main.c -o main.o
 	 
 clean:
-	rm *.o fila
+	rm *.o
 
 run:
-	./fila
+	valgrind ./exec < CasosTeste/2.in
