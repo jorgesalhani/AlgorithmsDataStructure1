@@ -2,7 +2,7 @@
 #ifndef FILA_H
 	#define FILA_H
 
-	#define TAM_MAX 10 /*estimativa do tamanho máximo da fila*/
+	#define TAM_MAX 10 /*estimativa do tamanho maximo da fila*/
 	#define inicial 0
 	#define ERRO -32000
 	

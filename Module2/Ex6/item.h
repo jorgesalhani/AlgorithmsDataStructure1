@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 	#define ITEM_H
 
-	#define TRUE 1 /*define valor booleano – não existe na linguagem C*/
+	#define TRUE 1 /*define valor booleano nao existe na linguagem C*/
 	#define FALSE 0
 	#define boolean int /*define um tipo booleano*/
 	#define ERRO -32000
