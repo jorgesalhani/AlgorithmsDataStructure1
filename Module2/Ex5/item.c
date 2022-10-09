@@ -22,7 +22,7 @@ bool item_apagar(ITEM **item) {
 
 void item_imprimir(ITEM *item) {
   if (item == NULL) return;
-  printf("%d ", item->chave);
+  printf("%d", item->chave);
   return;
 }
 

@@ -104,41 +104,65 @@ void fila_imprimir(FILA *fila) {
   return;  
 }
 
+/**
+ * @author Jorge Augusto Salgado Salhani
+ * @brief Descartar e modificar ordem de cartas em um baralho
+ * 
+ * O algoritmo de descarte e modificacao segue:
+ * 1. Empilhar n cartas em sequencia, enumeradas 1 -> n
+ * 2. Jogar fora a carta do topo da pilha
+ * 3. Mover a proxima carta para a base da pilha (final da fila)
+ * 
+ * O algoritmo utilizado a seguir utiliza duas filas encadeadas.
+ * A primeira fila eh responsavel por armazenar todas as n cartas em
+ * sequencia. A segunda fila, armazena todas as cartas jogadas fora.
+ * 
+ * @param int n O numero de cartas que serao inseridas no baralho
+ * @return void
+*/
 void cartas(int n) {
+
+  // Criar duas filas
   FILA* fila = fila_criar();
   FILA* fila_descartes = fila_criar();
   
+  // Inserir as n cartas informadas na fila <fila>
   ITEM* item;
   for (int i = 1; i <= n; i++) {
     item = item_criar(i);
     fila_inserir(fila, item);
   }
 
-  for (int j = 0; j < n; j++) {
+  // Para cada carta, remove-la da fila original <fila>
+  // e inserir na fila de descartes <fila_descartes>
+  // Em seguida, remanejar a proxima carta de <fila>
+  // para a posicao final
+  for (int j = 0; j < n-1; j++) {
     fila_inserir(fila_descartes, fila_remover(fila));
     fila_inserir(fila, fila_remover(fila));
   }
 
+  // Resgatar as cartas de descarte, formatar a impressao
+  // e liberar memoria do item (carta) removido
   printf("Discarded cards: ");
-  for (int k = 0; k < n-1; k++) {
-    ITEM* item_pop = fila_remover(fila_descartes);
-    item_imprimir(item_pop);
-    item_apagar(&item_pop);
+  for (int l = 0; l < n-1; l++) {
+    ITEM* item_descarte = fila_remover(fila_descartes);
+    printf("%d", item_get_chave(item_descarte));
+    item_apagar(&item_descarte);
+    if (l < n-2) printf(", ");
   }
-  ITEM* item_pop_remain = fila_remover(fila_descartes);
-  item_imprimir(item_pop_remain);
-  item_apagar(&item_pop_remain);
-  printf("\n");
-  printf("Remaining cards: ");
 
-  for (int k = 0; k < n; k++) {
-    ITEM* item_pop2 = fila_remover(fila);
-    item_imprimir(item_pop2);
-    item_apagar(&item_pop2);
-  }
+  // Resgatar a carta remanescente da fila original <fila>
+  // liberar a memoria e formatar a impressao
+  printf("\nRemaining card: ");
+  ITEM* item_pop2 = fila_remover(fila);
+  printf("%d", item_get_chave(item_pop2));
+  item_apagar(&item_pop2);
   printf("\n");
 
+  // Liberar a memoria das filas vazias
   fila_apagar(&fila);
   fila_apagar(&fila_descartes);
+  
   return;
 }
