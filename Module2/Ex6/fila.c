@@ -76,22 +76,6 @@ ITEM *fila_remover(FILA *fila) {
   return item_removido;
 }
 
-void fila_apagar(FILA **fila) {
-  if (fila == NULL || !_fila_existe(*fila)) return;
-  if (fila_vazia(*fila)) {
-    free(*fila);
-    *fila = NULL;
-    fila = NULL;
-    return;
-  }
-
-  ITEM* item_removido = fila_remover(*fila);
-  item_apagar(&item_removido);
-  item_removido = NULL;
-  fila_apagar(fila);
-}
-
-
 ITEM *fila_frente(FILA *fila) {
   if (!_fila_existe(fila) || fila_vazia(fila)) return NULL;
   return (fila->inicio)->item;
@@ -120,3 +104,32 @@ void fila_imprimir(FILA *fila) {
   return;
 }
 
+
+/**
+ * @author Jorge Augusto Salgado Salhani
+ * @brief Apagar fila recursivamente
+ * 
+ * Dada uma fila contendo um numero variavel de itens,
+ * o algoritmo funciona da seguinte forma
+ * 1. Verifica se a fila existe
+ * 2. Caso a fila esteja vazia, libera seu endereco e retorna
+ * 3. Caso contrario, remover e liberar memoria do 1o elemento
+ * 4. Chamar a funcao recursivamente
+ * 
+ * @param FILA** fila O endereco contendo ponteiro para o tipo FILA*
+ * @return void
+*/
+void fila_apagar(FILA **fila) {
+  if (fila == NULL || !_fila_existe(*fila)) return;
+  if (fila_vazia(*fila)) {
+    free(*fila);
+    *fila = NULL;
+    fila = NULL;
+    return;
+  }
+
+  ITEM* item_removido = fila_remover(*fila);
+  item_apagar(&item_removido);
+  item_removido = NULL;
+  fila_apagar(fila);
+}
