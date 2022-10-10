@@ -2,10 +2,10 @@
 #ifndef LISTA_H
 	#define LISTA_H
 
-	#define TAM_MAX 50 /*estimativa do tamanho máximo da lista*/
+	#define TAM_MAX 50 /*estimativa do tamanho maximo da lista*/
 	#define inicial 0
 	#define ERRO -32000
-	#define ORDENADA 1 // 0 = lista não ordenada, 1 = lista ordenada
+	#define ORDENADA 1 // 0 = lista nao ordenada, 1 = lista ordenada
 
 	#include "item.h"
 
