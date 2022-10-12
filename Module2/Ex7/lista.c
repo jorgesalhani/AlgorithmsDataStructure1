@@ -15,7 +15,10 @@ bool lista_existe_(LISTA* lista) {
 }
 
 int lista_posicao_de_insercao_(LISTA* lista, ITEM* item, int a, int b) {
-  if (b - a == 1) return b;
+  if (b - a == 1) {
+    if (item_get_chave((lista->itens)[a]) >= item_get_chave(item)) return a;
+    return b;
+  }
   int meio = (int)((b + a) / 2);
   if (item_get_chave((lista->itens)[meio]) >= item_get_chave(item)) {
     lista_posicao_de_insercao_(lista, item, a, meio);
@@ -27,8 +30,8 @@ int lista_posicao_de_insercao_(LISTA* lista, ITEM* item, int a, int b) {
 void lista_ordenada_inserir_(LISTA* lista, ITEM* item) {
   int posicao = lista_posicao_de_insercao_(lista, item, 0, lista->tamanho);
   int i = lista->tamanho - 1;
-  while (i > posicao) {
-    lista[i+1] = lista[i];
+  while (i >= posicao) {
+    lista->itens[i+1] = lista->itens[i];
     i--;
   }
   (lista->itens)[posicao] = item;
@@ -39,10 +42,10 @@ void lista_nao_ordenada_inserir_(LISTA* lista, ITEM* item) {
   (lista->itens)[ultima_posicao] = item;
 }
 
-ITEM* substituir_primeira_ocorrencia_(LISTA* lista, int posicao_insercao) {
+ITEM* resgatar_primeira_ocorrencia_(LISTA* lista, int posicao_insercao) {
   int i = posicao_insercao;
   ITEM* item_referencia = (lista->itens)[posicao_insercao];
-  while (i != 0 || item_get_chave((lista->itens)[i] == item_get_chave(item_referencia))) {
+  while (i != 0 || item_get_chave((lista->itens)[i]) == item_get_chave(item_referencia)) {
     i--;
   }
   return (lista->itens)[i];
@@ -144,6 +147,9 @@ bool lista_cheia(LISTA *lista) {
 void lista_imprimir(LISTA *lista) {
   if (!lista_existe_(lista)) return;
   for (int i = 0; i < lista->tamanho; i ++) {
+    printf("[");
     item_imprimir((lista->itens)[i]);
+    printf("]; ");
   }
+  printf("\n");
 }

@@ -18,12 +18,12 @@ bool item_existe_(ITEM* item) {
 
 ITEM *item_criar(int chave) {
   ITEM* item = (ITEM*) malloc(sizeof(ITEM));
-  if (item_existe_(item)) item->chave;
+  if (item_existe_(item)) item->chave = chave;
   return item;
 }
 
 bool item_apagar(ITEM **item) {
-  if (item == NULL || item_existe_(*item)) return false;
+  if (item == NULL || !item_existe_(*item)) return false;
   free(*item);
   *item = NULL;
   item = NULL;
@@ -31,7 +31,7 @@ bool item_apagar(ITEM **item) {
 }
 
 void item_imprimir(ITEM *item) {
-  if (item_existe_(item)) printf("%d");
+  if (item_existe_(item)) printf("%d", item->chave);
   return;
 }
 

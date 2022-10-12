@@ -11,7 +11,7 @@ main.o:
 	gcc -g -c main.c -o main.o
 	 
 clean:
-	rm *.o lista
+	rm *.o
 
 run:
-	./lista
+	valgrind ./exec < CasosTeste/1.in
