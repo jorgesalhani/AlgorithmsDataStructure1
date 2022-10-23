@@ -191,7 +191,17 @@ void lista_imprimir(LISTA *lista) {
   return; 
 }
 
-
+/**
+ * @brief Funcao para executar busca recursiva de itens com dada chave
+ * 
+ * Utilizando uma lista encadeada, performamos uma busca
+ * recursiva para determinar quantas vezes existem itens com uma dada chave
+ * informada pelo usuario
+ * 
+ * @param LISTA* Ponteiro para uma lista previamente criada
+ * @param int chave A chave do item buscado
+ * @return int O numero de ocorrencias do item
+*/
 int busca_rec(LISTA *lista, int chave) {
   if (!lista_existe_(lista) || lista_vazia(lista)) return 0;
   int ocorrencias_rec = 0;
