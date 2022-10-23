@@ -18,7 +18,6 @@ int main(int argc, char *argv[]){
     }
 
     scanf("%d", &m);
-
     while(m--){
         scanf("%d", &num);
         
