@@ -40,7 +40,13 @@ bool lista_buscar_no_inicio_(NO* no_inicio, int chave) {
 
 void lista_apagar_aux(LISTA* lista) {
   if (lista_vazia(lista)) return;
-  lista_remover(lista, item_get_chave(lista->inicio));
+  lista_remover(lista, item_get_chave(lista->inicio->item));
+}
+
+void lista_imprimir_aux(NO* no) {
+  if (!no_existe_(no)) return;
+  item_imprimir(no->item);
+  lista_imprimir_aux(no->proximo);
 }
 
 // Funcoes de interface
@@ -113,8 +119,9 @@ ITEM *lista_remover(LISTA *lista, int chave) {
 }
 
 bool lista_apagar(LISTA **lista) {
-  if (lista == NULL || lista_existe_(*lista)) return false;
+  if (lista == NULL || !lista_existe_(*lista)) return false;
   lista_apagar_aux(*lista);
+  free(*lista);
   *lista = NULL;
   lista = NULL;
   return true;
@@ -149,7 +156,7 @@ bool lista_cheia(LISTA *lista) {
 
 void lista_imprimir(LISTA *lista) {
   if (!lista_existe_(lista)) return;
-  lista_imprimir_aux(lista);
+  lista_imprimir_aux(lista->inicio);
   return;
 }
 
