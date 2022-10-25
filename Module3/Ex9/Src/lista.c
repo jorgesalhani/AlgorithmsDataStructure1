@@ -15,6 +15,14 @@ struct lista_{
   int tamanho;  /*tamanho da lista*/
 };
 
+// Funcoes auxiliares
+// ==================
+
+
+
+// Funcoes de interface
+// ====================
+
 LISTA *lista_criar(void) {
 
 }
