@@ -40,13 +40,22 @@ bool lista_buscar_no_inicio_(NO* no_inicio, int chave) {
 
 void lista_apagar_aux(LISTA* lista) {
   if (lista_vazia(lista)) return;
-  lista_remover(lista, item_get_chave(lista->inicio->item));
+  ITEM* item = lista_remover(lista, item_get_chave(lista->inicio->item));
+  item_apagar(&item);
+  lista_apagar_aux(lista);
 }
 
-void lista_imprimir_aux(NO* no) {
+void lista_imprimir_aux(NO* no) { 
   if (!no_existe_(no)) return;
   item_imprimir(no->item);
   lista_imprimir_aux(no->proximo);
+}
+
+NO* lista_inverter_recursivo_aux(LISTA** lista, NO* no) {
+  if (no_existe_(no) && !no_existe_(no->proximo)) return no;
+   lista_inverter_recursivo_aux(lista, no->proximo);
+  item_imprimir(no->item);
+  
 }
 
 // Funcoes de interface
@@ -93,10 +102,11 @@ ITEM *lista_remover(LISTA *lista, int chave) {
 
   if (no_inicio) {
     no_cursor = lista->inicio;
-    lista->inicio->proximo = no_cursor->proximo;
+    lista->inicio = no_cursor->proximo;
     item = no_cursor->item;
     free(no_cursor);
     no_cursor = NULL;
+    lista->tamanho--;
     return item;
   }
   
@@ -114,6 +124,7 @@ ITEM *lista_remover(LISTA *lista, int chave) {
   item = no_cursor->item;
   free(no_cursor);
   no_cursor = NULL;
+  lista->tamanho--;
 
   return item;
 }
@@ -162,6 +173,8 @@ void lista_imprimir(LISTA *lista) {
 
 
 bool lista_inverter(LISTA **lista) {
-
+  if (lista == NULL || !lista_existe_(*lista) || lista_vazia(*lista)) return false;
+  lista_inverter_recursivo_aux(lista, (*lista)->inicio);
+  return true;
 }
 

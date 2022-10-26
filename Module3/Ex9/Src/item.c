@@ -24,7 +24,7 @@ ITEM *item_criar(int chave) {
 
 bool item_apagar(ITEM **item) {
   if (item == NULL || !item_existe_(*item)) return false;
-  free(item);
+  free(*item);
   *item = NULL;
   item = NULL;
   return true;
