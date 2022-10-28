@@ -8,14 +8,10 @@ int main(int argc, char *argv[]){
 
     LISTA *lista = lista_criar();
 
-    // scanf("%d", &n);
-    n = 10;
-    int l[10] = {1, 1, 3, 4, 5, 6, 7, 8, 9, 10};
-    int i = 0;
+    scanf("%d", &n);
     while(n--){
-        // scanf("%d", &num);
-        ITEM *item = item_criar(l[i]);
-        i++;
+        scanf("%d", &num);
+        ITEM *item = item_criar(num);
         lista_inserir(lista, item);
     }
 

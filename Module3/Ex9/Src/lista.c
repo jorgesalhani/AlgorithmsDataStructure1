@@ -46,16 +46,24 @@ void lista_apagar_aux(LISTA* lista) {
 }
 
 void lista_imprimir_aux(NO* no) { 
-  if (!no_existe_(no)) return;
+  if (!no_existe_(no)) {
+    printf("\n"); 
+    return;
+  }
   item_imprimir(no->item);
   lista_imprimir_aux(no->proximo);
 }
 
-NO* lista_inverter_recursivo_aux(LISTA** lista, NO* no) {
-  if (no_existe_(no) && !no_existe_(no->proximo)) return no;
-   lista_inverter_recursivo_aux(lista, no->proximo);
-  item_imprimir(no->item);
-  
+void lista_inverter_recursivo_aux(bool no_inicio, NO* no_anterior, NO* no_cursor) {
+  if (!no_existe_(no_anterior) || !no_existe_(no_cursor)) return;
+
+  NO* no_proximo = no_cursor->proximo;
+  if (no_inicio) no_anterior->proximo = NULL;
+  no_cursor->proximo = no_anterior;
+
+  if (!no_existe_(no_proximo)) return;
+
+  lista_inverter_recursivo_aux(false, no_cursor, no_proximo);
 }
 
 // Funcoes de interface
@@ -84,8 +92,8 @@ bool lista_inserir(LISTA *lista, ITEM *item) {
     lista->inicio = no;
     lista->fim = no;
   } else {
-    no->proximo = lista->inicio;
-    lista->inicio = no;
+    lista->fim->proximo = no;
+    lista->fim = no;
   }
   lista->tamanho++;
 
@@ -174,7 +182,10 @@ void lista_imprimir(LISTA *lista) {
 
 bool lista_inverter(LISTA **lista) {
   if (lista == NULL || !lista_existe_(*lista) || lista_vazia(*lista)) return false;
-  lista_inverter_recursivo_aux(lista, (*lista)->inicio);
+  lista_inverter_recursivo_aux(true, (*lista)->inicio, (*lista)->inicio->proximo);
+  NO* no_inicio = (*lista)->inicio;
+  (*lista)->inicio = (*lista)->fim;
+  (*lista)->fim = no_inicio;
   return true;
 }
 

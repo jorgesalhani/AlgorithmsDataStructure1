@@ -31,7 +31,7 @@ bool item_apagar(ITEM **item) {
 }
 
 void item_imprimir(ITEM *item) {
-  if (item_existe_(item)) printf("%d\n", item->chave);
+  if (item_existe_(item)) printf("[%d]; ", item->chave);
 }
 
 int item_get_chave(ITEM *item) {
