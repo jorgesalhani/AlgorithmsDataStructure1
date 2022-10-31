@@ -179,7 +179,21 @@ void lista_imprimir(LISTA *lista) {
   return;
 }
 
-
+/**
+ * @author Jorge Augusto Salgado Salhani
+ * @brief Funcao para inverter itens de uma lista encadeada
+ * 
+ * A funcao principal eh responsavel por inverter recursivamente
+ * uma dada lista encadeada. O algoritmo segue:
+ * 
+ * 1. Armazena um no cursor e seu no anterior.
+ * 2. Caso seja o primeiro elemento da lista, seu proximo no eh nulo
+ * 3. Caso contrario, faz do no->proximo o no anterior da lista original
+ * 4. Repete a reconexao ate que no->proximo seja nulo
+ * 
+ * @param LISTA** Endereco do ponteiro para um TAD tipo LISTA
+ * @return bool True, caso invertido corretamente. False caso contrario
+*/
 bool lista_inverter(LISTA **lista) {
   if (lista == NULL || !lista_existe_(*lista) || lista_vazia(*lista)) return false;
   lista_inverter_recursivo_aux(true, (*lista)->inicio, (*lista)->inicio->proximo);
