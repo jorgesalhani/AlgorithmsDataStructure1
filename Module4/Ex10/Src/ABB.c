@@ -156,7 +156,7 @@ void abb_imprimir (ABB *T) {
 void abb_apagar (ABB **T) {
   if (T == NULL || abb_existe_(*T)) return;
   abb_apagar_aux((*T)->raiz);
-  free(*T)
+  free(*T);
   *T = NULL;
   T = NULL;
   return;
