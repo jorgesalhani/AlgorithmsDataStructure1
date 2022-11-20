@@ -3,7 +3,7 @@
 
   #include  "item.h"
 
-  typedef struct abb ABB;
+  typedef struct abb_ ABB;
  
   ABB *abb_criar (void); 
   bool abb_inserir (ABB *T, ITEM *item);
