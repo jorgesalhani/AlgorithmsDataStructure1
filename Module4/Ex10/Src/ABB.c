@@ -39,7 +39,7 @@ NO* abb_criar_no(ITEM* item) {
 NO* abb_inserir_no_aux(NO* no, ITEM* item) {
   if (item == NULL) return NULL;
 
-  if (no_existe_(no)) {
+  if (!no_existe_(no)) {
     no = abb_criar_no(item);
   } else 
   if (item_get_chave(item) < item_get_chave(no->item)) {
@@ -79,6 +79,8 @@ void troca_max_esq(NO* troca, NO* no, NO* anterior) {
   if (no == anterior) anterior->esq = troca->esq;
   else anterior->dir = troca->esq;
 
+  ITEM* item = no->item;
+  item_apagar(&item);
   no->item = troca->item;
   free(troca);
   troca = NULL;
@@ -99,6 +101,8 @@ bool abb_remover_aux(NO** no, int chave) {
         *no = (*no)->esq;
       }
       
+      ITEM* item = no_aux->item;
+      item_apagar(&item);
       free(no_aux);
       no_aux = NULL;
       
@@ -144,6 +148,7 @@ ABB *abb_criar (void) {
 bool abb_inserir (ABB *T, ITEM *item) {
   if (!abb_existe_(T) || item == NULL) return false;
   NO* no = abb_inserir_no_aux(T->raiz, item);
+  T->raiz = no;
   return no_existe_(no);
 }
 
@@ -154,8 +159,8 @@ void abb_imprimir (ABB *T) {
 }
 
 void abb_apagar (ABB **T) {
-  if (T == NULL || abb_existe_(*T)) return;
-  abb_apagar_aux((*T)->raiz);
+  if (T == NULL || !abb_existe_(*T)) return;
+  abb_apagar_aux(&(*T)->raiz);
   free(*T);
   *T = NULL;
   T = NULL;
