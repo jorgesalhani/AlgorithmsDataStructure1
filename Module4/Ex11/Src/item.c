@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include "item.h"
 
+
+// Estrutura de dados
+// ==================
+
 struct item_ {
   int chave;
 };
