@@ -127,9 +127,9 @@ ITEM* abb_busca_aux(NO* no, int chave) {
   }
 
   if (chave < item_get_chave(no->item)) {
-    return abb_busca_aux(no->esq, chave);
+    abb_busca_aux(no->esq, chave);
   } else {
-    return abb_busca_aux(no->dir, chave);
+    abb_busca_aux(no->dir, chave);
   }
 }
 
