@@ -48,16 +48,16 @@ NO* ab_buscar_no_(NO* raiz, int chave) {
   ab_buscar_no_(raiz->dir, chave);
 }
 
-NO* ab_buscar_no_ascend_(NO* raiz, NO* no_ascend, int chave) {
-  if (!no_existe_(raiz) && !no_existe_(no_ascend) && item_get_chave(raiz->item) == chave) return no_ascend;
+void no_apagar_(NO** no) {
+  if (no != NULL || !no_existe_(*no)) return;
+  free(*no);
+  *no = NULL;
+  no = NULL;
+}
 
-  // TODO
-  if (raiz == no_ascend) {
-    ab_buscar_no_ascend_(raiz->esq, no_ascend, chave);
-    ab_buscar_no_ascend_(raiz->dir, no_ascend, chave);
-  } else {
-    ab_buscar_no_ascend_(raiz->esq, no_ascend->esq, chave);
-  }
+
+bool ab_remover_aux_(NO** raiz, int chave) {
+
 }
 
 // Funcoes interface
@@ -90,8 +90,7 @@ bool ab_inserir(AB *T, ITEM *item, int lado, int chave) {
 bool ab_remover(AB *T, int chave) {
   if (!ab_existe_(T)) return false;
 
-  NO* no = ab_buscar_no_ascend_(T->raiz, T->raiz, chave);
-
+  return ab_remover_aux_(&(T->raiz), chave);
 }
 
 void ab_apagar_arvore(AB **T) {
