@@ -55,9 +55,49 @@ void no_apagar_(NO** no) {
   no = NULL;
 }
 
+bool ab_trocar_max_esq_(NO* troca, NO* raiz, NO* ascend) {
+  if (no_existe_(troca->dir)) {
+    ab_trocar_max_esq_(troca->dir, raiz, troca);
+    return true;
+  }
+
+  if (raiz == ascend) ascend->esq = troca->esq;
+  else ascend->dir = troca->esq;
+
+  ITEM* item_raiz = raiz->item;
+  item_apagar(&item_raiz);
+  raiz->item = troca->item;
+  no_apagar_(&troca);
+  return true;
+}
+
+bool ab_remover_no_(NO** raiz) {
+  if (no_existe_((*raiz)->dir) && no_existe_((*raiz)->esq)) return ab_trocar_max_esq_((*raiz)->esq, (*raiz), (*raiz));
+  
+  NO* raiz_aux = *raiz;
+  if (no_existe_((*raiz)->esq)) *raiz = (*raiz)->esq;
+  if (no_existe_((*raiz)->dir)) *raiz = (*raiz)->dir;
+
+  free(raiz_aux);
+  raiz_aux = NULL;
+  return true;
+}
 
 bool ab_remover_aux_(NO** raiz, int chave) {
+  if (!no_existe_(*raiz)) return false;
+  if (item_get_chave((*raiz)->item) == chave) ab_remover_no_(raiz);
+}
 
+bool ab_apagar_arvore_aux_(NO** raiz) {
+  if (!no_existe_((*raiz)->dir) && !no_existe_((*raiz)->esq)) {
+    ITEM* item = (*raiz)->item;
+    item_apagar(&item);
+    no_apagar_(raiz);
+    return true;
+  }
+
+  ab_apagar_arvore_aux_(&((*raiz)->esq));
+  ab_apagar_arvore_aux_(&((*raiz)->dir));
 }
 
 // Funcoes interface
@@ -94,7 +134,8 @@ bool ab_remover(AB *T, int chave) {
 }
 
 void ab_apagar_arvore(AB **T) {
-
+  if (T == NULL || !ab_existe_(*T)) return false;
+  ab_apagar_arvore_aux_(&((*T)->raiz));
 }
 
 bool is_abb(AB *T) {
