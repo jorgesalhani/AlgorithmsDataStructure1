@@ -5,6 +5,9 @@ int main(int argc, char *argv[]){
     ITEM* item = item_criar(1);
     item_imprimir(item);
     item_apagar(&item);
+
+    AB* T = ab_criar();
+    ab_apagar_arvore(&T);
     
     // AB *A = ab_criar();
 

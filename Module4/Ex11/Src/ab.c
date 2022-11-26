@@ -24,10 +24,6 @@ bool ab_existe_(AB* ab) {
   return (ab != NULL) ? true : false;
 }
 
-bool item_existe_(ITEM* item) {
-  return (item != NULL) ? true : false;
-}
-
 bool no_existe_(NO* no) {
   return (no != NULL) ? true : false;
 }
@@ -88,12 +84,12 @@ bool ab_remover_aux_(NO** raiz, int chave) {
   if (item_get_chave((*raiz)->item) == chave) ab_remover_no_(raiz);
 }
 
-bool ab_apagar_arvore_aux_(NO** raiz) {
+void ab_apagar_arvore_aux_(NO** raiz) {
   if (!no_existe_((*raiz)->dir) && !no_existe_((*raiz)->esq)) {
     ITEM* item = (*raiz)->item;
     item_apagar(&item);
     no_apagar_(raiz);
-    return true;
+    return;
   }
 
   ab_apagar_arvore_aux_(&((*raiz)->esq));
@@ -113,7 +109,7 @@ AB *ab_criar(void) {
 }
 
 bool ab_inserir(AB *T, ITEM *item, int lado, int chave) {
-  if (!ab_existe_(T) || !item_existe_(item)) return false;
+  if (!ab_existe_(T) || item == NULL) return false;
 
   NO* no = no_criar_(item);
   if (!no_existe_(no)) return false;
@@ -134,7 +130,7 @@ bool ab_remover(AB *T, int chave) {
 }
 
 void ab_apagar_arvore(AB **T) {
-  if (T == NULL || !ab_existe_(*T)) return false;
+  if (T == NULL || !ab_existe_(*T)) return;
   ab_apagar_arvore_aux_(&((*T)->raiz));
 }
 
