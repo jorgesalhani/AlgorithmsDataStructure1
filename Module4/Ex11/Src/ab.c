@@ -38,7 +38,6 @@ NO* no_criar_(ITEM* item) {
   return no;
 }
 
-// TODO: not working
 NO* ab_buscar_no_(NO* raiz, int chave) {
   if (!no_existe_(raiz)) return NULL;
 
@@ -103,6 +102,17 @@ void ab_apagar_arvore_aux_(NO** raiz) {
   }
 }
 
+bool is_abb_aux_(NO* raiz) {
+  if (!no_existe_(raiz)) return false;
+
+  if (
+    (no_existe_(raiz->dir) && item_get_chave(raiz->item) > item_get_chave(raiz->dir->item)) ||
+    (no_existe_(raiz->esq) && item_get_chave(raiz->item) < item_get_chave(raiz->esq->item))
+  ) return false;
+
+  if (is_abb_aux_(raiz->esq) && is_abb_aux_(raiz->dir)) return true;
+}
+
 // Funcoes interface
 // =================
 
@@ -149,5 +159,7 @@ void ab_apagar_arvore(AB **T) {
 }
 
 bool is_abb(AB *T) {
+  if (!ab_existe_(T)) return false;
 
+  return is_abb_aux_(T->raiz);
 }
