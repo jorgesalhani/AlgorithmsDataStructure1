@@ -40,12 +40,13 @@ NO* no_criar_(ITEM* item) {
 
 // TODO: not working
 NO* ab_buscar_no_(NO* raiz, int chave) {
-  if (no_existe_(raiz) && item_get_chave(raiz->item) != chave) {
+  if (!no_existe_(raiz)) return NULL;
+
+  if (item_get_chave(raiz->item) == chave) return raiz;
+  
+  if (ab_buscar_no_(raiz->esq, chave) == NULL) {
     ab_buscar_no_(raiz->dir, chave);
-    ab_buscar_no_(raiz->esq, chave);
-  } else {
-    return raiz;
-  }
+  };
 }
 
 void no_apagar_(NO** no) {
@@ -123,8 +124,7 @@ bool ab_inserir(AB *T, ITEM *item, int lado, int chave) {
   if (!no_existe_(T->raiz)) {
     T->raiz = no;
   } else {
-    NO* no_ascend = NULL;
-    no_ascend = ab_buscar_no_(T->raiz, chave);
+    NO* no_ascend = ab_buscar_no_(T->raiz, chave);
     if (!no_existe_(no_ascend)) return false;
 
     if (lado == 0) no_ascend->esq = no;
