@@ -102,15 +102,46 @@ void ab_apagar_arvore_aux_(NO** raiz) {
   }
 }
 
+int abb_max_esq_(NO* raiz) {
+  if (!no_existe_(raiz)) return 0;
+  
+  int max_esq = abb_max_esq_(raiz->esq);
+  int max_dir = abb_max_esq_(raiz->dir);
+
+  int max = max_esq;
+  if (max_esq < max_dir) max = max_dir;
+  if (item_get_chave(raiz->item) > max) max = item_get_chave(raiz->item);
+
+  return max;
+}
+
+int abb_min_dir_(NO* raiz) {
+  if (!no_existe_(raiz)) return 0;
+
+  int min_esq = abb_min_dir_(raiz->esq);
+  int min_dir = abb_min_dir_(raiz->dir);
+
+  int min = min_dir;
+  if (min_esq < min_dir) min = min_esq;
+  if (item_get_chave(raiz->item) < min) min = item_get_chave(raiz->item);
+
+  return min;
+}
+
 bool is_abb_aux_(NO* raiz) {
   if (!no_existe_(raiz)) return false;
 
-  if (
-    (no_existe_(raiz->dir) && item_get_chave(raiz->item) > item_get_chave(raiz->dir->item)) ||
-    (no_existe_(raiz->esq) && item_get_chave(raiz->item) < item_get_chave(raiz->esq->item))
-  ) return false;
+  int max_esq = abb_max_esq_(raiz->esq);
+  int min_dir = abb_min_dir_(raiz->dir);
 
-  if (is_abb_aux_(raiz->esq) && is_abb_aux_(raiz->dir)) return true;
+  if (max_esq > item_get_chave(raiz->item)) return false;
+  if (min_dir < item_get_chave(raiz->item)) return false;
+
+  if (!is_abb_aux_(raiz->dir) || !is_abb_aux_(raiz->esq)) {
+    return false;
+  }
+
+  return true;
 }
 
 // Funcoes interface
@@ -161,5 +192,6 @@ void ab_apagar_arvore(AB **T) {
 bool is_abb(AB *T) {
   if (!ab_existe_(T)) return false;
 
-  return is_abb_aux_(T->raiz);
+  bool verificado = true;
+  return (verificado = is_abb_aux_(T->raiz));
 }
