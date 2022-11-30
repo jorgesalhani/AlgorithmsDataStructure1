@@ -121,8 +121,8 @@ int abb_min_dir_(NO* raiz) {
   int min_esq = abb_min_dir_(raiz->esq);
   int min_dir = abb_min_dir_(raiz->dir);
 
-  int min = min_dir;
-  if (min_esq < min_dir) min = min_esq;
+  int min = item_get_chave(raiz->item);
+  if (min_esq != 0 && min_esq < min_dir) min = min_esq;
   if (item_get_chave(raiz->item) < min) min = item_get_chave(raiz->item);
 
   return min;
@@ -136,10 +136,6 @@ bool is_abb_aux_(NO* raiz) {
 
   if (max_esq > item_get_chave(raiz->item)) return false;
   if (min_dir < item_get_chave(raiz->item)) return false;
-
-  if (!is_abb_aux_(raiz->dir) || !is_abb_aux_(raiz->esq)) {
-    return false;
-  }
 
   return true;
 }
@@ -189,6 +185,22 @@ void ab_apagar_arvore(AB **T) {
   T = NULL;
 }
 
+/**
+ * @author Jorge Augusto Salgado Salhani
+ * @brief Funcao que verifica se dada AB e' ABB
+ * 
+ * ABB: 
+ *  1. maior no da subarvore esquerda deve ser menor
+ *     que o no raiz
+ *  2. menor no da subarvore direita deve ser maior
+ *     que o no raiz
+ * 
+ * Para cada no raiz, armazenamos seu menor no esquerdo
+ * e seu maior no direito. Se satisfizer 1 e 2, e' ABB
+ * 
+ * @param AB* Ponteiro para a raiz da arvore AB (TAD AB)
+ * @return bool Se ABB, true. Caso contrario, false
+*/
 bool is_abb(AB *T) {
   if (!ab_existe_(T)) return false;
 
