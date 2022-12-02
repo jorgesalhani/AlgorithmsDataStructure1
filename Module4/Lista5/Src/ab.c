@@ -59,6 +59,24 @@ NO* ab_criar_no_(ITEM* item) {
   return no;
 }
 
+int ab_profundidade_(NO* raiz) {
+  if (!no_existe_(raiz)) return -1;
+
+  int e = ab_profundidade_(raiz->esq);
+  int d = ab_profundidade_(raiz->dir);
+  int max = (e > d) ? e : d;
+  return max + 1;
+}
+
+int ab_soma_conteudo_aux_(NO* raiz) {
+  if (!no_existe_(raiz)) return 0;
+  int soma = item_get_chave(raiz->item);
+  soma += ab_soma_conteudo_aux_(raiz->esq);
+  soma += ab_soma_conteudo_aux_(raiz->dir);
+
+  return soma;
+}
+
 // Funcoes interface
 // =================
 
@@ -87,6 +105,8 @@ bool ab_inserir(AB* T, ITEM* item, int lado, int chave) {
   else
   if (lado == DESC_ESQ) no_ascend->esq = no;
 
+  T->profundidade = ab_profundidade_(T->raiz);
+
   return true;
 }
 
@@ -98,4 +118,17 @@ bool ab_apagar_arvore(AB** T) {
   free(*T);
   *T = NULL;
   return true;
+}
+
+// Funcoes especiais
+// =================
+
+int ab_profundidade(AB* T) {
+  if (ab_existe_(T)) return T->profundidade;
+}
+
+int ab_soma_conteudo(AB* T) {
+  if (!ab_existe_(T) || !no_existe_(T->raiz)) return -1;
+
+  return ab_soma_conteudo_aux_(T->raiz);
 }

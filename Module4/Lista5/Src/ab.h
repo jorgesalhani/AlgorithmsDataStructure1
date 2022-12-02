@@ -12,4 +12,7 @@
   bool ab_inserir(AB* T, ITEM* item, int lado, int chave);
   bool ab_apagar_arvore(AB** T);
 
+  int ab_profundidade(AB* T);
+  int ab_soma_conteudo(AB* T);
+
 #endif

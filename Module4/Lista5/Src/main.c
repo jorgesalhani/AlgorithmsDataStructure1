@@ -16,6 +16,10 @@ int main(void) {
   ab_inserir(T, item3, 0, 2);
   ab_inserir(T, item4, 1, 3);
 
+  printf("prof: %d\n", ab_profundidade(T));
+
+  printf("soma: %d\n", ab_soma_conteudo(T));
+
   ab_apagar_arvore(&T);
   
 
