@@ -40,10 +40,11 @@ void ab_apagar_aux_(NO** raiz) {
 NO* ab_buscar_no_(NO* raiz, int chave) {
   if (!no_existe_(raiz)) return NULL;
 
-  ab_buscar_no_(raiz->dir, chave);
-  ab_buscar_no_(raiz->esq, chave);
-
   if (item_get_chave(raiz->item) == chave) return raiz;
+
+  if (ab_buscar_no_(raiz->dir, chave) == NULL) {
+    ab_buscar_no_(raiz->esq, chave);
+  }
 }
 
 NO* ab_criar_no_(ITEM* item) {
@@ -62,7 +63,7 @@ NO* ab_criar_no_(ITEM* item) {
 // =================
 
 AB* ab_criar() {
-  AB* T = (AB*) malloc (sizeof(AB*));
+  AB* T = (AB*) malloc (sizeof(AB));
   if (ab_existe_(T)) {
     T->raiz = NULL;
     T->profundidade = -1;
@@ -72,10 +73,16 @@ AB* ab_criar() {
 
 bool ab_inserir(AB* T, ITEM* item, int lado, int chave) {
   if (!ab_existe_(T) || item == NULL) return false;
+
+  NO* no = ab_criar_no_(item);
+  if (no_existe_(no) && !no_existe_(T->raiz)) {
+    T->raiz = no;
+    return true;
+  }
+
   NO* no_ascend = ab_buscar_no_(T->raiz, chave);
   if (!no_existe_(no_ascend)) return false;
 
-  NO* no = ab_criar_no_(item);
   if (lado == DESC_DIR) no_ascend->dir = no;
   else
   if (lado == DESC_ESQ) no_ascend->esq = no;
@@ -84,8 +91,10 @@ bool ab_inserir(AB* T, ITEM* item, int lado, int chave) {
 }
 
 bool ab_apagar_arvore(AB** T) {
-  if (T == NULL || ab_existe_(*T)) return false;
-  ab_apagar_aux_(&(*T)->raiz);
+  if (T == NULL) return false;
+  if (ab_existe_(*T)) {
+    ab_apagar_aux_(&(*T)->raiz);
+  }
   free(*T);
   *T = NULL;
   return true;
