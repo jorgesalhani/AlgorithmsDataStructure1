@@ -77,6 +77,16 @@ int ab_soma_conteudo_aux_(NO* raiz) {
   return soma;
 }
 
+int ab_total_nos_aux_(NO* raiz) {
+  if (!no_existe_(raiz)) return 0;
+  
+  int total_nos = 1;
+  total_nos += ab_total_nos_aux_(raiz->esq);
+  total_nos += ab_total_nos_aux_(raiz->dir);
+
+  return total_nos;
+}
+
 // Funcoes interface
 // =================
 
@@ -131,4 +141,10 @@ int ab_soma_conteudo(AB* T) {
   if (!ab_existe_(T) || !no_existe_(T->raiz)) return -1;
 
   return ab_soma_conteudo_aux_(T->raiz);
+}
+
+int ab_total_nos(AB* T) {
+  if (!ab_existe_(T) || !no_existe_(T->raiz)) return -1;
+
+  return ab_total_nos_aux_(T->raiz);
 }

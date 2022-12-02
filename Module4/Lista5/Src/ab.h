@@ -14,5 +14,6 @@
 
   int ab_profundidade(AB* T);
   int ab_soma_conteudo(AB* T);
+  int ab_total_nos(AB* T);
 
 #endif
