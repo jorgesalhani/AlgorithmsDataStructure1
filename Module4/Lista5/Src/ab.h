@@ -10,7 +10,6 @@
 
   AB* ab_criar();
   bool ab_inserir(AB* T, ITEM* item, int lado, int chave);
-  bool ab_remover(AB* T, int chave);
   bool ab_apagar_arvore(AB** T);
 
 #endif
