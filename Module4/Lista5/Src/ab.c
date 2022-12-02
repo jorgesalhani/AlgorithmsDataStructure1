@@ -87,6 +87,18 @@ int ab_total_nos_aux_(NO* raiz) {
   return total_nos;
 }
 
+bool ab_estrita_aux_(NO* raiz) {
+  if (!no_existe_(raiz)) return false;
+
+  ab_estrita_aux_(raiz->dir);
+  ab_estrita_aux_(raiz->esq);
+
+  if ((!no_existe_(raiz->dir) && !no_existe_(raiz->esq)) ||
+      (no_existe_(raiz->dir) && no_existe_(raiz->esq))) {
+    return true;
+  }
+}
+
 // Funcoes interface
 // =================
 
@@ -147,4 +159,10 @@ int ab_total_nos(AB* T) {
   if (!ab_existe_(T) || !no_existe_(T->raiz)) return -1;
 
   return ab_total_nos_aux_(T->raiz);
+}
+
+bool ab_estrita(AB* T) {
+  if (!ab_existe_(T));
+
+  return ab_estrita_aux_(T->raiz);
 }
