@@ -8,7 +8,7 @@
 
   AVL* avl_criar();
   bool avl_apagar(AVL** T);
-  bool avl_inserir(AVL* T);
+  bool avl_inserir(AVL* T, ITEM* item);
   bool avl_remover(AVL* T, int chave);
 
 #endif
