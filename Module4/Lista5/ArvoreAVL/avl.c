@@ -183,7 +183,7 @@ bool avl_inserir(AVL* T, ITEM* item) {
     if (!no_existe_(no)) return false;
     T->raiz = no;
   } else {
-    avl_inserir_aux_(T->raiz, item);
+    T->raiz = avl_inserir_aux_(T->raiz, item);
     T->profundidade = avl_profundidade_(T->raiz);
   }
 }
